@@ -29,8 +29,8 @@ async function main() {
 Mengingatkan rekan-rekan untuk melakukan absensi.
 
 Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
-Suhu: 🌡 - ${weather?.current_weather.temperature} °C
-Angin: 🍃 - ${weather?.current_weather.windspeed} km/jam
+Suhu : 🌡 ${weather?.current_weather.temperature} °C
+Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
 
 \`\`\`${quote?.en}
 -- ${quote?.author}
