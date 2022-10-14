@@ -14,7 +14,7 @@ export async function getStory() {
 try {
     const response_top_stories = await fetch("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty");
     if (response_top_stories.ok) {
-        top_stories = await response_top_stories.json() as number[];
+        const top_stories = await response_top_stories.json() as number[];
         const resp_top_story = await fetch(`https://hacker-news.firebaseio.com/v0/item/${top_stories[0]}.json?print=pretty`);
         if (resp_top_story.ok) {
             return await resp_top_story.json() as Story;
