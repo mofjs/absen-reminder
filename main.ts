@@ -38,7 +38,7 @@ Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
 -- ${quote?.author}
 \`\`\`
 
-Top HN News: 📰 story.title (story.url) 
+Top HN News: 📰 ${story.title} (${story.url}) 
 
 `;
 
