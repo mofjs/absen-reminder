@@ -3,6 +3,7 @@ import { getWeather, parseWeatherCode } from "./weather.ts";
 
 import "$std/dotenv/load.ts";
 import { getQuote } from "./quote.ts";
+import { getStory } from "./hn.ts";
 
 const API_KEY = Deno.env.get("API_KEY");
 if (!API_KEY) {
@@ -24,6 +25,7 @@ async function main() {
   });
   const weather = await getWeather();
   const quote = await getQuote();
+  const story = await getStory();
   const message = `${today}
 
 Mengingatkan rekan-rekan untuk melakukan absensi.
@@ -35,6 +37,9 @@ Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
 \`\`\`${quote?.en}
 -- ${quote?.author}
 \`\`\`
+
+Top HN News: 📰 story.title (story.url) 
+
 `;
 
   console.log(message);
