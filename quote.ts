@@ -5,16 +5,11 @@ export interface Quote {
 }
 
 export async function getQuote() {
-  try {
-    const response = await fetch(
-      "https://programming-quotes-api.herokuapp.com/quotes/random",
-    );
-    if (response.ok) {
-      return await response.json() as Quote;
-    }
-    return null;
-  } catch (error) {
-    console.error(error);
-    return null;
+  const response = await fetch(
+    "https://programming-quotes-api.herokuapp.com/quotes/random",
+  );
+  if (!response.ok) {
+    throw Error("Invalid server response.");
   }
+  return await response.json() as Quote;
 }

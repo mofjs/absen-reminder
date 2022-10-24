@@ -21,16 +21,11 @@ export interface WeatherResponse {
 }
 
 export async function getWeather() {
-  try {
-    const response = await fetch(API_URL);
-    if (response.ok) {
-      return await response.json() as WeatherResponse;
-    }
-    return null;
-  } catch (error) {
-    console.error(error);
-    return null;
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw Error("Invalid server response.");
   }
+  return await response.json() as WeatherResponse;
 }
 
 export function parseWeatherCode(code?: number) {
@@ -38,11 +33,11 @@ export function parseWeatherCode(code?: number) {
     case 0:
       return "☀️ Cerah";
     case 1:
-      return "🌤 Berawan Kecil";
+      return "🌤 Cerah Berawan";
     case 2:
-      return "⛅ Berawan Sedang";
+      return "⛅ Berawan";
     case 3:
-      return "🌥 Berawan Besar";
+      return "🌥 Mendung";
     case 45:
     case 48:
       return "🌫 Kabut";

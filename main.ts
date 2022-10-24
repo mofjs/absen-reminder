@@ -1,7 +1,6 @@
+import "$std/dotenv/load.ts";
 import { sendText } from "./open-wa.ts";
 import { getWeather, parseWeatherCode } from "./weather.ts";
-
-import "$std/dotenv/load.ts";
 import { getQuote } from "./quote.ts";
 import { getStory } from "./hn.ts";
 
@@ -38,7 +37,7 @@ Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
 -- ${quote?.author}
 \`\`\`
 
-Top HN News: 📰 ${story.title} (${story.url}) 
+Top HN News: 📰 ${story?.title} (${story?.url}) 
 
 `;
 
