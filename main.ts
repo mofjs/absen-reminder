@@ -27,7 +27,7 @@ async function main() {
   const story = await getStory();
   const message = `${today}
 
-Mengingatkan rekan-rekan untuk melakukan absensi.
+Mengingatkan rekan-rekan untuk melakukan presensi.
 
 Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
 Suhu : 🌡 ${weather?.current_weather.temperature} °C
@@ -37,8 +37,7 @@ Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
 -- ${quote?.author}
 \`\`\`
 
-Top HN News: 📰 ${story?.title} (${story?.url}) 
-
+HackerNews Hot: 📰 ${story?.title} (${story?.url}) 
 `;
 
   console.log(message);
