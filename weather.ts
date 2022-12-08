@@ -21,11 +21,20 @@ export interface WeatherResponse {
 }
 
 export async function getWeather() {
-  const response = await fetch(API_URL);
-  if (!response.ok) {
-    throw Error("Invalid server response.");
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw Error("Invalid server response.");
+    }
+    const weather = await response.json() as WeatherResponse;
+
+    return `
+Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
+Suhu : 🌡 ${weather?.current_weather.temperature} °C
+Angin: 🍃 ${weather?.current_weather.windspeed} km/jam`;
+  } catch (error) {
+    return `Error getWeather: ${error}`;
   }
-  return await response.json() as WeatherResponse;
 }
 
 export function parseWeatherCode(code?: number) {

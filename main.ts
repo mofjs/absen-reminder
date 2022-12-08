@@ -1,6 +1,6 @@
 import "$std/dotenv/load.ts";
 import { sendText } from "./open-wa.ts";
-import { getWeather, parseWeatherCode } from "./weather.ts";
+import { getWeather } from "./weather.ts";
 import { getQuote } from "./quote.ts";
 import { getStory } from "./hn.ts";
 
@@ -22,22 +22,15 @@ async function main() {
     month: "long",
     year: "numeric",
   });
-  const weather = await getWeather();
-  const quote = await getQuote();
-  const story = await getStory();
   const message = `${today}
 
 Mengingatkan rekan-rekan untuk melakukan presensi.
 
-Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
-Suhu : 🌡 ${weather?.current_weather.temperature} °C
-Angin: 🍃 ${weather?.current_weather.windspeed} km/jam
+${await getWeather()}
 
-\`\`\`${quote?.en}
--- ${quote?.author}
-\`\`\`
+${await getQuote()}
 
-HackerNews Hot: 📰 ${story?.title} (${story?.url}) 
+${await getStory()}
 `;
 
   console.log(message);
