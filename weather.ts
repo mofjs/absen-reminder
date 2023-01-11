@@ -28,8 +28,7 @@ export async function getWeather() {
     }
     const weather = await response.json() as WeatherResponse;
 
-    return `
-Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
+    return `Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
 Suhu : 🌡 ${weather?.current_weather.temperature} °C
 Angin: 🍃 ${weather?.current_weather.windspeed} km/jam`;
   } catch (error) {

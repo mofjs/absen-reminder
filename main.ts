@@ -1,8 +1,8 @@
 import "$std/dotenv/load.ts";
 import { sendText } from "./open-wa.ts";
 import { getWeather } from "./weather.ts";
-import { getQuote } from "./quote.ts";
 import { getStory } from "./hn.ts";
+import { getJoke } from "./joke.ts";
 
 const API_KEY = Deno.env.get("API_KEY");
 if (!API_KEY) {
@@ -28,7 +28,7 @@ Mengingatkan rekan-rekan untuk melakukan presensi.
 
 ${await getWeather()}
 
-${await getQuote()}
+${await getJoke()}
 
 ${await getStory()}
 `;
