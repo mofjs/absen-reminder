@@ -4,11 +4,6 @@ import { getWeather } from "./weather.ts";
 import { getStory } from "./hn.ts";
 import { getJoke } from "./joke.ts";
 
-const API_KEY = Deno.env.get("API_KEY");
-if (!API_KEY) {
-  console.error("[ERROR] The API_KEY environment variable is required.");
-  Deno.exit(1);
-}
 const CHAT_ID = Deno.env.get("CHAT_ID");
 if (!CHAT_ID) {
   console.error("[ERROR] The CHAT_ID environment variable is required.");
