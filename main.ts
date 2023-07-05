@@ -1,5 +1,5 @@
 import "$std/dotenv/load.ts";
-import { sendText } from "./open-wa.ts";
+import { sendText } from "./wa.ts";
 import { getWeather } from "./weather.ts";
 import { getStory } from "./hn.ts";
 import { getJoke } from "./joke.ts";
@@ -35,7 +35,7 @@ ${await getStory()}
 
   console.log(message);
 
-  await sendText(API_KEY!, CHAT_ID, message);
+  await sendText(CHAT_ID!, message);
 }
 
 // Learn more at https://deno.land/manual/examples/module_metadata#concepts
