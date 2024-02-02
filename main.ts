@@ -1,4 +1,5 @@
 import "$std/dotenv/load.ts";
+
 import { sendText } from "./wa.ts";
 import { getWeather } from "./weather.ts";
 import { getStory } from "./hn.ts";
@@ -33,7 +34,7 @@ ${await getStory()}
   await sendText(CHAT_ID!, message);
 }
 
-// Learn more at https://deno.land/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  main();
+  Deno.cron("clockin", "30 0 * * 1-5", main);
+  Deno.cron("clockout", "0 10 * * 1-5", main);
 }
