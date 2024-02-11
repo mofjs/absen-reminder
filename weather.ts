@@ -1,39 +1,55 @@
-const API_URL =
-  "https://api.open-meteo.com/v1/forecast?latitude=-6.1862&longitude=106.8063&current_weather=true&timezone=Asia%2FBangkok";
+import { fetchWeatherApi } from "openmeteo";
 
-export interface CurrentWeather {
-  temperature: number;
-  windspeed: number;
-  winddirection: number;
-  weathercode: number;
-  time: string;
-}
+const API_URL = "https://api.open-meteo.com/v1/forecast";
 
-export interface WeatherResponse {
-  latitude: number;
-  longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
-  timezone: string;
-  timezone_abbreviation: string;
-  elevation: number;
-  current_weather: CurrentWeather;
-}
+const LATITUDE = Deno.env.get("LATITUDE") ?? "-6.1862";
+const LONGITUDE = Deno.env.get("LONGITUDE") ?? "106.8063";
+const TIMEZONE = Deno.env.get("TIMEZONE") ?? "Asia/Jakarta";
 
 export async function getWeather() {
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw Error("Invalid server response.");
-    }
-    const weather = await response.json() as WeatherResponse;
+    const { temperature, humidity, precipitation, weatherCode, windSpeed } =
+      await fetchWeather(LATITUDE, LONGITUDE, TIMEZONE);
 
-    return `Cuaca: ${parseWeatherCode(weather?.current_weather.weathercode)}
-Suhu : 🌡 ${weather?.current_weather.temperature} °C
-Angin: 🍃 ${weather?.current_weather.windspeed} km/jam`;
+    return [
+      `Cuaca       : ${parseWeatherCode(weatherCode)}`,
+      `Curah Hujan : 🚿 ${precipitation} mm`,
+      `Suhu        : 🌡 ${temperature} °C`,
+      `Kelembapan  : 💧 ${humidity} %`,
+      `Angin       : 🍃 ${windSpeed} km/jam`,
+    ].join("\n");
   } catch (error) {
     return `Error getWeather: ${error}`;
   }
+}
+
+export async function fetchWeather(
+  latitude: string,
+  longitude: string,
+  timezone: string,
+) {
+  const params = {
+    latitude: parseFloat(latitude),
+    longitude: parseFloat(longitude),
+    timezone,
+    current: [
+      "temperature_2m",
+      "relative_humidity_2m",
+      "precipitation",
+      "weather_code",
+      "wind_speed_10m",
+    ],
+  };
+  const responses = await fetchWeatherApi(API_URL, params);
+  const current = responses.at(0)?.current();
+  if (!current) throw new Error("No Weather Response!");
+  return {
+    temperature: current.variables(0)!.value(),
+    humidity: current.variables(1)!.value(),
+    precipitation: current.variables(2)!.value(),
+    weatherCode: current.variables(3)!.value(),
+    windSpeed: current.variables(4)!.value(),
+  };
 }
 
 export function parseWeatherCode(code?: number) {

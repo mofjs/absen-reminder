@@ -4,7 +4,8 @@
     "start": "deno run -A main.ts"
   },
   "imports": {
-    "$std/": "https://deno.land/std@0.214.0/"
+    "$std/": "https://deno.land/std@0.214.0/",
+    "openmeteo": "npm:openmeteo"
   },
   "unstable": ["kv", "cron"]
 }

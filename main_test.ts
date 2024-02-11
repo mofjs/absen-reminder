@@ -1,5 +1,7 @@
-import { assertEquals } from "$std/assert/assert_equals.ts";
+import { assertStringIncludes } from "$std/assert/assert_string_includes.ts";
+import { createMessage } from "./main.ts";
 
-Deno.test(function alwayTrue() {
-  assertEquals(true, true);
+Deno.test(async function createMessageTest() {
+  const message = await createMessage();
+  assertStringIncludes(message, "presensi");
 });
