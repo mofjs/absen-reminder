@@ -1,7 +1,6 @@
 import "$std/dotenv/load.ts";
-import { isLibur } from "./date.ts";
 
-import { getToday } from "./date.ts";
+import { getToday, isLibur } from "./date.ts";
 import { getStory } from "./hn.ts";
 import { sendText } from "./wa.ts";
 import { getWeather } from "./weather.ts";
