@@ -14,11 +14,11 @@ export async function getWeather() {
     return [
       "```",
       `Cuaca       : ${parseWeatherCode(weatherCode)}`,
-      `Curah Hujan : 🚿 ${precipitation} mm`,
+      `Curah Hujan : 🚿 ${precipitation.toFixed(1)} mm`,
       `Suhu        : 🌡 ${temperature.toFixed(1)} °C`,
       `Kelembapan  : 💧 ${humidity.toFixed(0)} %`,
       `Angin       : 🍃 ${windSpeed.toFixed(1)} km/jam`,
-      "```"
+      "```",
     ].join("\n");
   } catch (error) {
     return `Error getWeather: ${error}`;
